@@ -1,0 +1,28 @@
+on:
+  schedule:
+    - cron: 0 0 * * *
+
+name: Upload nightly VERSION
+
+jobs:
+  test:
+    name: Julia nightly VERSION
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        version:
+          - 'nightly'
+        os:
+          - ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: julia-actions/setup-julia@v1
+        with:
+          version: ${{ matrix.version }}
+          arch: ${{ matrix.arch }}
+      - name: Write VERSION to text file
+        run: julia -e 'write("VERSION.txt", string(VERSION))'
+      - name: Upload VERSION.txt
+        uses: actions/upload-artifact@v2
+        with:
+          path: VERSION.txt
