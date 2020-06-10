@@ -1,6 +1,7 @@
 on:
-  schedule:
-    - cron: 0 0 * * *
+  push:
+  # schedule:
+  #   - cron: 0 0 * * *
 
 name: Upload nightly VERSION
 
@@ -16,7 +17,7 @@ jobs:
           - ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: julia-actions/setup-julia@v1
+      - uses: julia-actions/setup-julia@latest
         with:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
