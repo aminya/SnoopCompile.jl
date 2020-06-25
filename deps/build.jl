@@ -6,3 +6,4 @@ Pkg.develop([
   PackageSpec(path=joinpath(rootdir,"SnoopCompileBot")),
   PackageSpec(path=rootdir),
 ])
+Pkg.resolve()
