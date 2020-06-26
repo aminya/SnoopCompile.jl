@@ -1,4 +1,5 @@
 using Pkg
+Pkg.activate()
 rootdir = dirname(@__DIR__)
 Pkg.develop([
   PackageSpec(path=joinpath(rootdir,"SnoopCompileCore")),
