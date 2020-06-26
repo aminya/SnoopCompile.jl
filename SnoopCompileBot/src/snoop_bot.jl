@@ -1,6 +1,15 @@
 # Snooping functions
 function _snoopi_bot(snoop_script, tmin)
     return quote
+        using Pkg
+        Pkg.add([
+          "SnoopCompileCore",
+          "SnoopCompileAnalysis",
+          "SnoopCompileBot",
+        ])
+        Pkg.resolve()
+
+
         using SnoopCompileCore
 
         data = @snoopi tmin=$tmin begin
@@ -11,6 +20,14 @@ end
 
 function _snoopc_bot(snoop_script)
     return quote
+        using Pkg
+        Pkg.add([
+          "SnoopCompileCore",
+          "SnoopCompileAnalysis",
+          "SnoopCompileBot",
+        ])
+        Pkg.resolve()
+
         using SnoopCompileCore
 
         @snoopc "compiles.log" begin
@@ -26,6 +43,14 @@ end
 
 function _snoop_analysis_bot(snooping_code, package_name, precompile_folder, subst, exclusions, check_eval)
     return quote
+        using Pkg
+        Pkg.add([
+          "SnoopCompileCore",
+          "SnoopCompileAnalysis",
+          "SnoopCompileBot",
+        ])
+        Pkg.resolve()
+
         packageSym = Symbol($package_name)
 
         ################################################################
@@ -109,6 +134,14 @@ function _snoop_bot_expr(config::BotConfig, snoop_script, test_modul::Module; sn
 
     out = quote
         ################################################################
+        using Pkg
+        Pkg.add([
+          "SnoopCompileCore",
+          "SnoopCompileAnalysis",
+          "SnoopCompileBot",
+        ])
+        Pkg.resolve()
+
         using SnoopCompileBot
 
         # Environment variable to detect SnoopCompile bot

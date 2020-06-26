@@ -2,6 +2,14 @@
 function _snoopi_bench_cmd(snoop_script)
     tmin = 0.0 # For benchmarking
     return quote
+        using Pkg
+        Pkg.add([
+          "SnoopCompileCore",
+          "SnoopCompileAnalysis",
+          "SnoopCompileBot",
+        ])
+        Pkg.resolve()
+
         global SnoopCompile_ENV = true
 
         using SnoopCompileCore
@@ -56,6 +64,14 @@ function _snoop_bench(config::BotConfig, snoop_script::Expr, test_modul::Module 
     out = quote
         package_sym = Symbol($package_name)
         ################################################################
+        using Pkg
+        Pkg.add([
+          "SnoopCompileCore",
+          "SnoopCompileAnalysis",
+          "SnoopCompileBot",
+        ])
+        Pkg.resolve()
+
         using SnoopCompileBot
         @info("""------------------------
         Benchmark Started
