@@ -109,6 +109,9 @@ function _snoop_bot_expr(config::BotConfig, snoop_script, test_modul::Module; sn
 
     out = quote
         ################################################################
+        using Pkg
+        Pkg.add("SnoopCompileBot")
+        
         using SnoopCompileBot
 
         # Environment variable to detect SnoopCompile bot

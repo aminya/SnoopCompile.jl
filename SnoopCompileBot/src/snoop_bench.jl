@@ -56,6 +56,9 @@ function _snoop_bench(config::BotConfig, snoop_script::Expr, test_modul::Module 
     out = quote
         package_sym = Symbol($package_name)
         ################################################################
+        using Pkg
+        Pkg.add("SnoopCompileBot")
+        
         using SnoopCompileBot
         @info("""------------------------
         Benchmark Started
