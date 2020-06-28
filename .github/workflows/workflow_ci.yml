@@ -26,9 +26,7 @@ jobs:
         with:
           version: ${{ matrix.version }}
       - run: |
-          julia -e 'using Pkg; Pkg.develop([PackageSpec(path="SnoopCompileCore"),
-                                           PackageSpec(path="SnoopCompileAnalysis"),
-                                           PackageSpec(path="SnoopCompileBot")])'
+          julia -e 'using Pkg; Pkg.develop( PackageSpec(path="SnoopCompileBot") )'
       - name: Install dependencies
         working-directory: ${{ matrix.test_package }}
         run: |
@@ -67,9 +65,7 @@ jobs:
         with:
           version: ${{ matrix.version }}
       - run: |
-          julia -e 'using Pkg; Pkg.develop([PackageSpec(path="SnoopCompileCore"),
-                                           PackageSpec(path="SnoopCompileAnalysis"),
-                                           PackageSpec(path="SnoopCompileBot")])'
+          julia -e 'using Pkg; Pkg.develop( PackageSpec(path="SnoopCompileBot") )'
       - name: Install dependencies
         working-directory: ${{ matrix.test_package }}
         run: |
@@ -110,9 +106,7 @@ jobs:
         with:
           version: ${{ matrix.version }}
       - run: |
-          julia -e 'using Pkg; Pkg.develop([PackageSpec(path="SnoopCompileCore"),
-                                           PackageSpec(path="SnoopCompileAnalysis"),
-                                           PackageSpec(path="SnoopCompileBot")])'
+          julia -e 'using Pkg; Pkg.develop( PackageSpec(path="SnoopCompileBot") )'
       - name: Install dependencies
         working-directory: ${{ matrix.test_package }}
         run: |
