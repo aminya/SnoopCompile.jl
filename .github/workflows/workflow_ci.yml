@@ -25,7 +25,8 @@ jobs:
       - uses: julia-actions/setup-julia@latest
         with:
           version: ${{ matrix.version }}
-      - run: |
+      - name: Add SnoopCompileBot
+        run: |
           julia -e 'using Pkg; Pkg.develop( PackageSpec(path="SnoopCompileBot") )'
       - name: Install dependencies
         working-directory: ${{ matrix.test_package }}
@@ -64,7 +65,8 @@ jobs:
       - uses: julia-actions/setup-julia@latest
         with:
           version: ${{ matrix.version }}
-      - run: |
+      - name: Add SnoopCompileBot
+        run: |
           julia -e 'using Pkg; Pkg.develop( PackageSpec(path="SnoopCompileBot") )'
       - name: Install dependencies
         working-directory: ${{ matrix.test_package }}
@@ -105,7 +107,8 @@ jobs:
       - uses: julia-actions/setup-julia@latest
         with:
           version: ${{ matrix.version }}
-      - run: |
+      - name: Add SnoopCompileBot
+        run: |
           julia -e 'using Pkg; Pkg.develop( PackageSpec(path="SnoopCompileBot") )'
       - name: Install dependencies
         working-directory: ${{ matrix.test_package }}
