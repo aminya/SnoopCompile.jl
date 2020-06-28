@@ -15,6 +15,12 @@ jobs:
           - ./SnoopCompileBot/test/TestPackage1.jl
           - ./SnoopCompileBot/test/TestPackage4.jl
     steps:
+      - run: |
+        if [ -z "${{github.head_ref}}" ]; then
+          echo ::set-env name=SnoopCompilePackageSpec::(echo "PackageSpec(url = \"https://github.com/timholy/SnoopCompile.jl\", rev = \"${{ github.ref }}\")")
+        else
+          echo ::set-env name=SnoopCompilePackageSpec::(echo "PackageSpec(url = \"https://github.com/${{github.repository_owner}}/SnoopCompile.jl\", rev = \"${{ github.head_ref }}\")")
+        fi
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
         with:
@@ -23,7 +29,7 @@ jobs:
         working-directory: ${{ matrix.test_package }}
         run: |
           julia --project -e 'using Pkg; Pkg.instantiate();'
-          julia -e "using Pkg; Pkg.develop(PackageSpec(url = \"https://github.com/aminya/SnoopCompile.jl\", rev = \"${{ github.head_ref }}\")); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
+          julia -e "using Pkg; Pkg.develop($SnoopCompilePackageSpec); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
       - name: Generating precompile files
         working-directory: ${{ matrix.test_package }}
         run: julia --project -e 'include("deps/SnoopCompile/snoop_bot.jl")'
@@ -46,6 +52,12 @@ jobs:
         test_package:
           - ./SnoopCompileBot/test/TestPackage2.jl
     steps:
+      - run: |
+        if [ -z "${{github.head_ref}}" ]; then
+          echo ::set-env name=SnoopCompilePackageSpec::(echo "PackageSpec(url = \"https://github.com/timholy/SnoopCompile.jl\", rev = \"${{ github.ref }}\")")
+        else
+          echo ::set-env name=SnoopCompilePackageSpec::(echo "PackageSpec(url = \"https://github.com/${{github.repository_owner}}/SnoopCompile.jl\", rev = \"${{ github.head_ref }}\")")
+        fi
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
         with:
@@ -54,7 +66,7 @@ jobs:
         working-directory: ${{ matrix.test_package }}
         run: |
           julia --project -e 'using Pkg; Pkg.instantiate();'
-          julia -e "using Pkg; Pkg.develop(PackageSpec(url = \"https://github.com/aminya/SnoopCompile.jl\", rev = \"${{ github.head_ref }}\")); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
+          julia -e "using Pkg; Pkg.develop($SnoopCompilePackageSpec); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
       - name: Generating precompile files
         working-directory: ${{ matrix.test_package }}
         run: julia --project -e 'include("deps/SnoopCompile/snoop_bot.jl")'
@@ -79,6 +91,12 @@ jobs:
         test_package:
           - ./SnoopCompileBot/test/TestPackage3.jl
     steps:
+      - run: |
+        if [ -z "${{github.head_ref}}" ]; then
+          echo ::set-env name=SnoopCompilePackageSpec::(echo "PackageSpec(url = \"https://github.com/timholy/SnoopCompile.jl\", rev = \"${{ github.ref }}\")")
+        else
+          echo ::set-env name=SnoopCompilePackageSpec::(echo "PackageSpec(url = \"https://github.com/${{github.repository_owner}}/SnoopCompile.jl\", rev = \"${{ github.head_ref }}\")")
+        fi
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
         with:
@@ -87,7 +105,7 @@ jobs:
         working-directory: ${{ matrix.test_package }}
         run: |
           julia --project -e 'using Pkg; Pkg.instantiate();'
-          julia -e "using Pkg; Pkg.develop(PackageSpec(url = \"https://github.com/aminya/SnoopCompile.jl\", rev = \"${{ github.head_ref }}\")); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
+          julia -e "using Pkg; Pkg.develop($SnoopCompilePackageSpec); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
       - name: Generating precompile files
         working-directory: ${{ matrix.test_package }}
         run: julia --project -e 'include("deps/SnoopCompile/snoop_bot.jl")'
