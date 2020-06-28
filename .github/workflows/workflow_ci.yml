@@ -10,6 +10,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         test_package:
           - ./SnoopCompileBot/test/TestPackage1.jl
@@ -17,9 +18,9 @@ jobs:
     steps:
       - run: |
           if [ -z "${{github.head_ref}}" ]; then
-            echo ::set-env name=SnoopCompilePackageSpec::$(echo "PackageSpec(url = \"https://github.com/${{github.repository_owner}}/SnoopCompile.jl\", rev = \"${GITHUB_REF#refs/heads/}\")")
+            echo ::set-env name=SnoopCompilePackageSpec::$(echo "PackageSpec(url = \"https://github.com/${{github.actor}}/SnoopCompile.jl\", rev = \"${GITHUB_REF#refs/heads/}\")")
           else
-            echo ::set-env name=SnoopCompilePackageSpec::$(echo "PackageSpec(url = \"https://github.com/${{github.repository_owner}}/SnoopCompile.jl\", rev = \"${{ github.head_ref }}\")")
+            echo ::set-env name=SnoopCompilePackageSpec::$(echo "PackageSpec(url = \"https://github.com/${{github.actor}}/SnoopCompile.jl\", rev = \"${{ github.head_ref }}\")")
           fi
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
@@ -48,6 +49,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os:
           - ubuntu-latest
@@ -57,9 +59,9 @@ jobs:
     steps:
       - run: |
           if [ -z "${{github.head_ref}}" ]; then
-            echo ::set-env name=SnoopCompilePackageSpec::$(echo "PackageSpec(url = \"https://github.com/${{github.repository_owner}}/SnoopCompile.jl\", rev = \"${GITHUB_REF#refs/heads/}\")")
+            echo ::set-env name=SnoopCompilePackageSpec::$(echo "PackageSpec(url = \"https://github.com/${{github.actor}}/SnoopCompile.jl\", rev = \"${GITHUB_REF#refs/heads/}\")")
           else
-            echo ::set-env name=SnoopCompilePackageSpec::$(echo "PackageSpec(url = \"https://github.com/${{github.repository_owner}}/SnoopCompile.jl\", rev = \"${{ github.head_ref }}\")")
+            echo ::set-env name=SnoopCompilePackageSpec::$(echo "PackageSpec(url = \"https://github.com/${{github.actor}}/SnoopCompile.jl\", rev = \"${{ github.head_ref }}\")")
           fi
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
@@ -89,9 +91,10 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         version:
-          # - '1.0.5'
+          - '1.0.5' # WARNING: this fails
           - '1.2'
           - '1.4.2'
         test_package:
@@ -99,9 +102,9 @@ jobs:
     steps:
       - run: |
           if [ -z "${{github.head_ref}}" ]; then
-            echo ::set-env name=SnoopCompilePackageSpec::$(echo "PackageSpec(url = \"https://github.com/${{github.repository_owner}}/SnoopCompile.jl\", rev = \"${GITHUB_REF#refs/heads/}\")")
+            echo ::set-env name=SnoopCompilePackageSpec::$(echo "PackageSpec(url = \"https://github.com/${{github.actor}}/SnoopCompile.jl\", rev = \"${GITHUB_REF#refs/heads/}\")")
           else
-            echo ::set-env name=SnoopCompilePackageSpec::$(echo "PackageSpec(url = \"https://github.com/${{github.repository_owner}}/SnoopCompile.jl\", rev = \"${{ github.head_ref }}\")")
+            echo ::set-env name=SnoopCompilePackageSpec::$(echo "PackageSpec(url = \"https://github.com/${{github.actor}}/SnoopCompile.jl\", rev = \"${{ github.head_ref }}\")")
           fi
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
