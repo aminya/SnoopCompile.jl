@@ -6,8 +6,14 @@ defaults:
   run:
     shell: bash
 jobs:
-  TestPackage1_4:
+  Find_branch:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rlespinasse/github-slug-action@v2.x
+
+  TestPackage1_4:
+    needs: Find_branch
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -15,7 +21,6 @@ jobs:
           - ./SnoopCompileBot/test/TestPackage1.jl
           - ./SnoopCompileBot/test/TestPackage4.jl
     steps:
-      - run: echo ::set-env name=GITHUB_HEAD_REF::${{ github.head_ref }}
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
         with:
@@ -24,7 +29,7 @@ jobs:
         working-directory: ${{ matrix.test_package }}
         run: |
           julia --project -e 'using Pkg; Pkg.instantiate();'
-          julia -e "using Pkg; Pkg.develop(PackageSpec(url = \"https://github.com/timholy/SnoopCompile.jl\", rev = \"$GITHUB_HEAD_REF\")); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
+          julia -e "using Pkg; Pkg.develop(PackageSpec(url = \"https://github.com/timholy/SnoopCompile.jl\", rev = \"${{ env.GITHUB_REF_SLUG }}\")); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
       - name: Generating precompile files
         working-directory: ${{ matrix.test_package }}
         run: julia --project -e 'include("deps/SnoopCompile/snoop_bot.jl")'
@@ -37,7 +42,7 @@ jobs:
           path: ${{ matrix.test_package }}
 
   MultiOS:
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    needs: Find_branch
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -47,7 +52,6 @@ jobs:
         test_package:
           - ./SnoopCompileBot/test/TestPackage2.jl
     steps:
-      - run: echo ::set-env name=GITHUB_HEAD_REF::${{ github.head_ref }}
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
         with:
@@ -56,7 +60,7 @@ jobs:
         working-directory: ${{ matrix.test_package }}
         run: |
           julia --project -e 'using Pkg; Pkg.instantiate();'
-          julia -e "using Pkg; Pkg.develop(PackageSpec(url = \"https://github.com/timholy/SnoopCompile.jl\", rev = \"$GITHUB_HEAD_REF\")); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
+          julia -e "using Pkg; Pkg.develop(PackageSpec(url = \"https://github.com/timholy/SnoopCompile.jl\", rev = \"${{ env.GITHUB_REF_SLUG }}\")); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
       - name: Generating precompile files
         working-directory: ${{ matrix.test_package }}
         run: julia --project -e 'include("deps/SnoopCompile/snoop_bot.jl")'
@@ -70,7 +74,7 @@ jobs:
 
 
   MultiVersion:
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    needs: Find_branch
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -81,7 +85,6 @@ jobs:
         test_package:
           - ./SnoopCompileBot/test/TestPackage3.jl
     steps:
-      - run: echo ::set-env name=GITHUB_HEAD_REF::${{ github.head_ref }}
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
         with:
@@ -90,7 +93,7 @@ jobs:
         working-directory: ${{ matrix.test_package }}
         run: |
           julia --project -e 'using Pkg; Pkg.instantiate();'
-          julia -e "using Pkg; Pkg.develop(PackageSpec(url = \"https://github.com/timholy/SnoopCompile.jl\", rev = \"$GITHUB_HEAD_REF\")); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
+          julia -e "using Pkg; Pkg.develop(PackageSpec(url = \"https://github.com/timholy/SnoopCompile.jl\", rev = \"${{ env.GITHUB_REF_SLUG }}\")); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
       - name: Generating precompile files
         working-directory: ${{ matrix.test_package }}
         run: julia --project -e 'include("deps/SnoopCompile/snoop_bot.jl")'
