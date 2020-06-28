@@ -17,7 +17,7 @@ jobs:
     steps:
       - run: |
           if [ -z "${{github.head_ref}}" ]; then
-            echo ::set-env name=SnoopCompilePackageSpec::"PackageSpec(url = \"https://github.com/timholy/SnoopCompile.jl\", rev = \"${{ github.ref }}\")"
+            echo ::set-env name=SnoopCompilePackageSpec::"PackageSpec(url = \"https://github.com/${{github.repository_owner}}/SnoopCompile.jl\", rev = \"${GITHUB_REF#refs/heads/}\")"
           else
             echo ::set-env name=SnoopCompilePackageSpec::"PackageSpec(url = \"https://github.com/${{github.repository_owner}}/SnoopCompile.jl\", rev = \"${{ github.head_ref }}\")"
           fi
@@ -54,7 +54,7 @@ jobs:
     steps:
       - run: |
           if [ -z "${{github.head_ref}}" ]; then
-            echo ::set-env name=SnoopCompilePackageSpec::"PackageSpec(url = \"https://github.com/timholy/SnoopCompile.jl\", rev = \"${{ github.ref }}\")"
+            echo ::set-env name=SnoopCompilePackageSpec::"PackageSpec(url = \"https://github.com/${{github.repository_owner}}/SnoopCompile.jl\", rev = \"${GITHUB_REF#refs/heads/}\")"
           else
             echo ::set-env name=SnoopCompilePackageSpec::"PackageSpec(url = \"https://github.com/${{github.repository_owner}}/SnoopCompile.jl\", rev = \"${{ github.head_ref }}\")"
           fi
@@ -93,7 +93,7 @@ jobs:
     steps:
       - run: |
           if [ -z "${{github.head_ref}}" ]; then
-            echo ::set-env name=SnoopCompilePackageSpec::"PackageSpec(url = \"https://github.com/timholy/SnoopCompile.jl\", rev = \"${{ github.ref }}\")"
+            echo ::set-env name=SnoopCompilePackageSpec::"PackageSpec(url = \"https://github.com/${{github.repository_owner}}/SnoopCompile.jl\", rev = \"${GITHUB_REF#refs/heads/}\")"
           else
             echo ::set-env name=SnoopCompilePackageSpec::"PackageSpec(url = \"https://github.com/${{github.repository_owner}}/SnoopCompile.jl\", rev = \"${{ github.head_ref }}\")"
           fi
