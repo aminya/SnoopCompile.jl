@@ -1,4 +1,4 @@
-using SnoopCompileBot
+using SnoopCompile # for backward compatibiity test
 
 println("tests infer benchmark")
 
