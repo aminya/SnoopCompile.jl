@@ -18,14 +18,16 @@ if isdefined(SnoopCompileCore, Symbol("@snoopr"))
     using SnoopCompileAnalysis: getroot, remove_if_not_eval!
 end
 
-include("../SnoopCompileBot/src/SnoopCompileBot.jl")
-using SnoopCompile.SnoopCompileBot
-export BotConfig, snoop_bot, snoop_bench
-export timesum, pathof_noload, GoodPath
-if isdefined(SnoopCompile.SnoopCompileBot, Symbol("@snoopiBench"))
-    # deprecated names
-    export @snoopiBench, @snoopiBot, @snoopi_bench, @snoopi_bot
+if !isdefined(Main, :SnoopCompileBot) # prevent conflict
+    include("../SnoopCompileBot/src/SnoopCompileBot.jl")
+    using SnoopCompile.SnoopCompileBot
+    export BotConfig, snoop_bot, snoop_bench
+    export timesum, pathof_noload, GoodPath
+    if isdefined(SnoopCompile.SnoopCompileBot, Symbol("@snoopiBench"))
+        # deprecated names
+        export @snoopiBench, @snoopiBot, @snoopi_bench, @snoopi_bot
+    end
+    using SnoopCompile.SnoopCompileBot: standardize_osname, JuliaVersionNumber, addtestdep
 end
-using SnoopCompile.SnoopCompileBot: standardize_osname, JuliaVersionNumber, addtestdep
 
 end # module
