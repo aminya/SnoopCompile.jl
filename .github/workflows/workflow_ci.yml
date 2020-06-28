@@ -29,7 +29,7 @@ jobs:
         working-directory: ${{ matrix.test_package }}
         run: |
           julia --project -e 'using Pkg; Pkg.instantiate();'
-          julia -e "using Pkg; Pkg.develop($SnoopCompilePackageSpec); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
+          julia -e "using Pkg; Pkg.add($SnoopCompilePackageSpec); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
       - name: Generating precompile files
         working-directory: ${{ matrix.test_package }}
         run: julia --project -e 'include("deps/SnoopCompile/snoop_bot.jl")'
@@ -66,7 +66,7 @@ jobs:
         working-directory: ${{ matrix.test_package }}
         run: |
           julia --project -e 'using Pkg; Pkg.instantiate();'
-          julia -e "using Pkg; Pkg.develop($SnoopCompilePackageSpec); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
+          julia -e "using Pkg; Pkg.add($SnoopCompilePackageSpec); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
       - name: Generating precompile files
         working-directory: ${{ matrix.test_package }}
         run: julia --project -e 'include("deps/SnoopCompile/snoop_bot.jl")'
@@ -105,7 +105,7 @@ jobs:
         working-directory: ${{ matrix.test_package }}
         run: |
           julia --project -e 'using Pkg; Pkg.instantiate();'
-          julia -e "using Pkg; Pkg.develop($SnoopCompilePackageSpec); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
+          julia -e "using Pkg; Pkg.add($SnoopCompilePackageSpec); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
       - name: Generating precompile files
         working-directory: ${{ matrix.test_package }}
         run: julia --project -e 'include("deps/SnoopCompile/snoop_bot.jl")'
